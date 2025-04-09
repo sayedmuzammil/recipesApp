@@ -4,9 +4,10 @@ import {
   Routes,
   Route,
 } from 'react-router-dom';
-import Login from './Components/Login';
-import Register from './Components/Register';
-import ValidateOTP from './Components/ValidateOTP';
+import Login from './Pages/Login';
+import Register from './Pages/Register';
+import ValidateOTP from './Pages/ValidateOTP';
+import Home from './Pages/Home';
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
         <Route path="/" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/validateOTP" element={<ValidateOTP />} />
+        <Route path="/home" element={<Home />} />
       </Routes>
     </Router>
   );

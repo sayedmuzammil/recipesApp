@@ -15,8 +15,8 @@ const Register = () => {
   const tooglePassword = () => setShowPassword(!showPassword);
   const toogleConfirmPassword = () =>
     setShowConfirmPassword(!showConfirmPassword);
-  const [username, setUsername] = useState('');
-  const [errorUsername, setErrorUsername] = useState('');
+  const [email, setEmail] = useState('');
+  const [errorEmail, setErrorEmail] = useState('');
   const [password, setPassword] = useState('');
   const [errorPassword, setErrorPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
@@ -28,16 +28,16 @@ const Register = () => {
   const navigate = useNavigate();
   const checkInput = (e) => {
     e.preventDefault();
-    let usernameErr = false;
+    let emailErr = false;
     let passwordErr = false;
     let confirmPasswordErr = false;
     let tncErr = false;
 
-    if (username.trim() === '') {
-      setErrorUsername('Please enter your username');
-      usernameErr = true;
+    if (email.trim() === '') {
+      setErrorEmail('Please enter your email');
+      emailErr = true;
     } else {
-      setErrorUsername('');
+      setErrorEmail('');
     }
     if (password === '') {
       setErrorPassword('Please enter your password');
@@ -62,7 +62,7 @@ const Register = () => {
       setErrorTnC('');
     }
 
-    if (usernameErr || passwordErr || confirmPasswordErr || tncErr)
+    if (emailErr && passwordErr && confirmPasswordErr && tncErr)
       return;
     navigate('/validateOTP');
   };
@@ -87,28 +87,28 @@ const Register = () => {
 
         <form onSubmit={checkInput}>
           <div className="w-full p-5 mt-10 ">
-            {/* username, password, confirm password */}
+            {/* email, password, confirm password */}
             <div
               className={`w-full flex items-center gap-2 p-2  rounded-xl outline-1 ${
-                errorUsername ? 'outline-red-500' : 'outline-gray-300'
+                errorEmail ? 'outline-red-500' : 'outline-gray-300'
               }`}
             >
-              {/* username -> icon + input field */}
+              {/* email -> icon + input field */}
               <FaUserCircle className="ml-2" />
               <input
                 type="text"
-                name="username"
-                placeholder="Username"
-                value={username}
+                name="email"
+                placeholder="Email"
+                value={email}
                 minLength={3}
                 maxLength={10}
-                onChange={(e) => setUsername(e.target.value)}
+                onChange={(e) => setEmail(e.target.value)}
                 className="w-full rounded-md px-3 py-1.5 text-base text-gray-900 focus:outline-none"
               />
             </div>
-            {errorUsername && (
+            {errorEmail && (
               <p className="text-red-500 text-sm text-left mt-[0.5rem]">
-                {errorUsername}
+                {errorEmail}
               </p>
             )}
             <div
