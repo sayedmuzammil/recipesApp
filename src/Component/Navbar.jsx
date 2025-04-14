@@ -1,7 +1,9 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { NavLink } from 'react-router-dom';
 
 const Navbar = () => {
+  const [user, setUser] = useState(null);
+
   return (
     <div className="w-full content-center bg-[#E23E3E]">
       <nav className="w-full flex items-center justify-between p-5">

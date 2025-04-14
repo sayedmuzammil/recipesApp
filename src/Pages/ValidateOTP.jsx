@@ -1,8 +1,10 @@
 import React, { useRef, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
+import supabase from '../supabase';
 
 const ValidateOTP = () => {
   const navigate = useNavigate();
+  const { state } = useLocation();
   const inputArr = useRef([]);
   const [error, setError] = useState('');
 
@@ -25,13 +27,28 @@ const ValidateOTP = () => {
     }
   };
 
-  const checkOTP = () => {
+  const checkOTP = async () => {
     const otp = inputArr.current.map((ref) => ref.value).join('');
-    if (otp === '111111') {
-      setError('');
-      navigate('/Home');
-    } else {
-      setError('Invalid OTP. Please enter 111111.');
+    try {
+      if (otp === '111111') {
+        const { email, password } = state;
+
+        const { data, error } = await supabase.auth.signUp({
+          email,
+          password,
+        });
+
+        if (error) {
+          setError(error.message);
+        } else {
+          alert('Registration is sucessfull!. Please Login');
+          navigate('/');
+        }
+      } else {
+        setError('Invalid OTP. Please enter 111111.');
+      }
+    } catch (error) {
+      setError(error.message);
     }
   };
 

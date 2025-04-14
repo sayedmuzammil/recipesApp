@@ -7,6 +7,7 @@ import {
 } from 'react-icons/fa';
 import { RiLockPasswordFill } from 'react-icons/ri';
 import { Link, useNavigate } from 'react-router-dom';
+import supabase from '../supabase';
 
 const Login = () => {
   const [email, setEmail] = useState('');
@@ -17,11 +18,6 @@ const Login = () => {
   const tooglePassword = () => setShowPassword(!showPassword);
   const [error, setError] = useState('');
   const navigate = useNavigate();
-
-  const supabaseUrl = 'https://fcowzvzoezqwftypdhcd.supabase.co';
-  const supabaseAnonKey =
-    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZjb3d6dnpvZXpxd2Z0eXBkaGNkIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDM4NDQ4MDIsImV4cCI6MjA1OTQyMDgwMn0.uoedZFt2tIrzym8x6PE1buYhhxdj9ftcG-dG_MwbaOg';
-  const supabase = createClient(supabaseUrl, supabaseAnonKey);
 
   const handleSubmit = (e) => {
     e.preventDefault();

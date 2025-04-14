@@ -33,7 +33,7 @@ const Register = () => {
     let confirmPasswordErr = false;
     let tncErr = false;
 
-    if (email.trim() === '') {
+    if (!/^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/.test(email.trim())) {
       setErrorEmail('Please enter your email');
       emailErr = true;
     } else {
@@ -62,9 +62,11 @@ const Register = () => {
       setErrorTnC('');
     }
 
-    if (emailErr && passwordErr && confirmPasswordErr && tncErr)
+    if (emailErr || passwordErr || confirmPasswordErr || tncErr) {
       return;
-    navigate('/validateOTP');
+    } else {
+      navigate('/validateOTP', { state: { email, password } });
+    }
   };
 
   return (
@@ -101,7 +103,7 @@ const Register = () => {
                 placeholder="Email"
                 value={email}
                 minLength={3}
-                maxLength={10}
+                maxLength={15}
                 onChange={(e) => setEmail(e.target.value)}
                 className="w-full rounded-md px-3 py-1.5 text-base text-gray-900 focus:outline-none"
               />
@@ -123,7 +125,7 @@ const Register = () => {
                 name="password"
                 placeholder="Password"
                 value={password}
-                minLength={3}
+                minLength={6} // minimum length supabase password is 6
                 maxLength={10}
                 onChange={(e) => setPassword(e.target.value)}
                 className=" w-full rounded-md px-3 py-1.5 text-base text-gray-900 focus:outline-none"
@@ -185,7 +187,7 @@ const Register = () => {
               className="flex w-full items-center justify-between"
               style={{ marginTop: '1rem' }}
             >
-              {/* remember Me + forgot password */}
+              {/* Terms & Conditions */}
               <div className=" flex items-center">
                 {/* Agree to Terms & Conditions */}
                 <input
