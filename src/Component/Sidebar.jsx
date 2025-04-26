@@ -7,7 +7,7 @@ const Sidebar = ({
   selectedChef,
   setSelectedCategories,
   setSelectedChef,
-  onApplyFilter,
+  // onApplyFilter,
 }) => {
   const handleChefChange = (value) => {
     if (selectedChef.includes(value)) {
@@ -34,16 +34,16 @@ const Sidebar = ({
 
   return (
     <div className="p-5">
-      <div className="border-b-1 border-gray-300 py-3">
-        <h3>Category</h3>
+      <div className="border-b-1 border-gray-300 pb-3">
+        <h3 className="mt-2 mb-1">Category</h3>
         <ul>
           {categories.map((value, index) => {
             return (
               <li key={index}>
-                <label className="flex items-center gap-2 font-medium">
+                <label className="flex items-center gap-2 font-medium mb-1">
                   <input
                     type="checkbox"
-                    className="form-checkbox rounded-2xl"
+                    className="form-checkbox rounded-2xl size-5"
                     checked={selectedCategories.includes(value)}
                     onChange={() => handleCategoryChange(value)}
                   />
@@ -55,15 +55,15 @@ const Sidebar = ({
         </ul>
       </div>
       <div className="border-b-1 border-gray-300 py-3">
-        <h3>Chefs</h3>
+        <h3 className="mt-2 mb-1">Chefs</h3>
         <ul>
           {chefs.map((value, index) => {
             return (
               <li key={index}>
-                <label className="flex items-center gap-2">
+                <label className="flex items-center gap-2 font-medium mb-1">
                   <input
                     type="checkbox"
-                    className="form-checkbox"
+                    className="form-checkbox rounded-2xl size-5"
                     checked={selectedChef.includes(value)}
                     onChange={() => handleChefChange(value)}
                   />
@@ -84,13 +84,14 @@ const Sidebar = ({
         </p>
       </div>
       <div>
-        <button
+        {/* --- Not used because filter auto update --- */}
+        {/* <button
           type="submit"
           className="w-full p-2 mt-4 bg-[#E23E3E] hover:opacity-90 text-white font-bold rounded-2xl"
-          onClick={onApplyFilter}
+           onClick={onApplyFilter}
         >
           Apply Filter
-        </button>
+        </button> */}
         <button
           type="submit"
           className="w-full p-2 mt-4 bg-white border border-gray-300 text-black font-bold hover:opacity-90 rounded-2xl"

@@ -54,6 +54,11 @@ const Login = () => {
     } else {
       console.log('Login success:', data);
       setError('');
+      const username = data.user.user_metadata.display_name;
+      console.log('user: ', username);
+
+      localStorage.setItem('username', username);
+
       navigate('/home'); // change '/dashboard' to your desired route after login
     }
   };

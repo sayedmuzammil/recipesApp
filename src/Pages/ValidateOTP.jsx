@@ -31,11 +31,12 @@ const ValidateOTP = () => {
     const otp = inputArr.current.map((ref) => ref.value).join('');
     try {
       if (otp === '111111') {
-        const { email, password } = state;
+        const { username, email, password } = state;
 
         const { data, error } = await supabase.auth.signUp({
           email,
           password,
+          options: { data: { display_name: username } },
         });
 
         if (error) {

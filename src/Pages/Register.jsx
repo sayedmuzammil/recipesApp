@@ -15,6 +15,9 @@ const Register = () => {
   const tooglePassword = () => setShowPassword(!showPassword);
   const toogleConfirmPassword = () =>
     setShowConfirmPassword(!showConfirmPassword);
+  const [username, setUsername] = useState('');
+  const [errorUsername, setErrorUsername] = useState('');
+
   const [email, setEmail] = useState('');
   const [errorEmail, setErrorEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -28,10 +31,18 @@ const Register = () => {
   const navigate = useNavigate();
   const checkInput = (e) => {
     e.preventDefault();
+    let usernameErr = false;
     let emailErr = false;
     let passwordErr = false;
     let confirmPasswordErr = false;
     let tncErr = false;
+
+    if (username === '') {
+      setErrorUsername('Please enter your username');
+      usernameErr = true;
+    } else {
+      setErrorUsername('');
+    }
 
     if (!/^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/.test(email.trim())) {
       setErrorEmail('Please enter your email');
@@ -62,10 +73,18 @@ const Register = () => {
       setErrorTnC('');
     }
 
-    if (emailErr || passwordErr || confirmPasswordErr || tncErr) {
+    if (
+      usernameErr ||
+      emailErr ||
+      passwordErr ||
+      confirmPasswordErr ||
+      tncErr
+    ) {
       return;
     } else {
-      navigate('/validateOTP', { state: { email, password } });
+      navigate('/validateOTP', {
+        state: { username, email, password },
+      });
     }
   };
 
@@ -92,6 +111,29 @@ const Register = () => {
             {/* email, password, confirm password */}
             <div
               className={`w-full flex items-center gap-2 p-2  rounded-xl outline-1 ${
+                errorUsername ? 'outline-red-500' : 'outline-gray-300'
+              }`}
+            >
+              {/* Username -> icon + input field */}
+              <FaUserCircle className="ml-2" />
+              <input
+                type="text"
+                name="username"
+                placeholder="username"
+                value={username}
+                minLength={5}
+                maxLength={15}
+                onChange={(e) => setUsername(e.target.value)}
+                className="w-full rounded-md px-3 py-1.5 text-base text-gray-900 focus:outline-none"
+              />
+            </div>
+            {errorUsername && (
+              <p className="text-red-500 text-sm text-left mt-[0.5rem]">
+                {errorUsername}
+              </p>
+            )}
+            <div
+              className={`w-full flex items-center gap-2 p-2 mt-3 rounded-xl outline-1 ${
                 errorEmail ? 'outline-red-500' : 'outline-gray-300'
               }`}
             >
